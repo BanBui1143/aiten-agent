@@ -20,7 +20,7 @@ async function main() {
   });
   const broker = new Broker({
     url: MQTT_URL,
-    topic: "robot/v2/AITEN/+/state",
+    topic: "robot/+/+/+/state",
     username: MQTT_USERNAME,
     password: MQTT_PASSWORD,
   });
@@ -28,7 +28,7 @@ async function main() {
   broker.connect(async ({ topic, payload, qos, retain }) => {
     const receivedAt = new Date().toISOString();
     let message: unknown = payload.toString();
-    console.log(`[broker] ${topic} ${message}`);
+    console.log(`[broker] Got status at topic: ${topic} at ${receivedAt}`);
     try {
       // try parse JSON if possible
       message = JSON.parse(message as string);
